@@ -1,10 +1,16 @@
 // Routes
-import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
 import { ListComponent } from './list/list.component';
 import { RepoComponent } from './repo/repo.component';
 
 export const RoutePaths: object[] = [
-    { path: '', component: HomeComponent },
-    { path: 'list', component: ListComponent },
-    { path: 'repo', component: RepoComponent },
+    {
+        name: 'home',
+        path: '',
+        // module: HomeModule
+        // component: HomeComponent,
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    },
+    { name: 'list', path: 'list/:search', component: ListComponent },
+    { name: 'repo', path: 'repo/:id', component: RepoComponent },
 ];
